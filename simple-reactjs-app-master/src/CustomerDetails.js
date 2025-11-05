@@ -7,7 +7,8 @@ export default class CustomerDetails extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {}
+    this.state = { showMore: false };
+    this.toggleShowMore = this.toggleShowMore.bind(this);
   }
 
   //Function which is called when the component loads for the first time
@@ -31,9 +32,13 @@ export default class CustomerDetails extends Component {
     })
   };
 
+  toggleShowMore() {
+    this.setState({ showMore: !this.state.showMore });
+  }
+
   render() {
     if (!this.state.customerDetails)
-      return (<p>Loading Data</p>)
+      return (<p>Loading Data</p>);
     return (<div className="customerdetails">
       <Panel bsStyle="info" className="centeralign">
         <Panel.Heading>
@@ -46,11 +51,16 @@ export default class CustomerDetails extends Component {
           <p>City : {this.state.customerDetails.data.city}</p>
           <p>State : {this.state.customerDetails.data.state}</p>
           <p>Country : {this.state.customerDetails.data.country}</p>
-          <p>Organization : {this.state.customerDetails.data.organization}</p>
-          <p>Job Profile : {this.state.customerDetails.data.jobProfile}</p>
-          <p>Additional Info : {this.state.customerDetails.data.additionalInfo}</p>
+          {this.state.showMore && (
+            <React.Fragment>
+              <p>Organization : {this.state.customerDetails.data.organization}</p>
+              <p>Job Profile : {this.state.customerDetails.data.jobProfile}</p>
+              <p>Additional Info : {this.state.customerDetails.data.additionalInfo}</p>
+            </React.Fragment>
+          )}
+          <button onClick={this.toggleShowMore}>{this.state.showMore ? 'See Less' : 'See More'}</button>
         </Panel.Body>
       </Panel>
-    </div>)
+    </div>);
   }
 }
