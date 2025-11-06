@@ -54,13 +54,11 @@ export default class CustomerDetails extends Component {
             <p>City : {this.state.customerDetails.data.city}</p>
             <p>State : {this.state.customerDetails.data.state}</p>
             <p>Country : {this.state.customerDetails.data.country}</p>
-            {this.state.showMore && (
-              <React.Fragment>
-                <p>Organization : {this.state.customerDetails.data.organization}</p>
-                <p>Job Profile : {this.state.customerDetails.data.jobProfile}</p>
-                <p>Additional Info : {this.state.customerDetails.data.additionalInfo}</p>
-              </React.Fragment>
-            )}
+            {this.state.showMore && (<React.Fragment>
+              <p>Organization : {this.state.customerDetails.data.organization}</p>
+              <p>Job Profile : {this.state.customerDetails.data.jobProfile}</p>
+              <p>Additional Info : {this.state.customerDetails.data.additionalInfo}</p>
+            </React.Fragment>)}
             <button onClick={this.toggleShowMore} aria-expanded={this.state.showMore} aria-label={this.state.showMore ? 'See Less' : 'See More'}>
               {this.state.showMore ? 'See Less' : 'See More'}
             </button>
