@@ -57,7 +57,7 @@ export default class CustomerDetails extends Component {
                 <p>Additional Info : {this.state.customerDetails.data.additionalInfo}</p>
               </React.Fragment>
             )}
-            <button onClick={this.toggleShowMore}>{this.state.showMore ? 'See Less' : 'See More'}</button>
+            <button onClick={this.toggleShowMore} style={{ backgroundColor: 'green', color: 'white' }}>{this.state.showMore ? 'See Less' : 'View Details'}</button>
           </Panel.Body>
         </Panel>
       </div>
