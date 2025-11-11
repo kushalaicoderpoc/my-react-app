@@ -7,50 +7,64 @@ export default class CustomerDetails extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {}
+    this.state = { radioValue: '' };
   }
 
   //Function which is called when the component loads for the first time
   componentDidMount() {
-    this.getCustomerDetails(this.props.val)
+    this.getCustomerDetails(this.props.val);
   }
 
-  //Function which is called whenver the component is updated
+  //Function which is called whenever the component is updated
   componentDidUpdate(prevProps) {
 
     //get Customer Details only if props has changed
     if (this.props.val !== prevProps.val) {
-      this.getCustomerDetails(this.props.val)
+      this.getCustomerDetails(this.props.val);
     }
   }
 
-  //Function to Load the customerdetails data from json.
+  //Function to Load the customer details data from json.
   getCustomerDetails(id) {
     axios.get('assets/samplejson/customer' + id + '.json').then(response => {
-      this.setState({customerDetails: response})
-    })
+      this.setState({customerDetails: response});
+    });
+  };
+
+  handleRadioChange = (event) => {
+    this.setState({ radioValue: event.target.value });
   };
 
   render() {
     if (!this.state.customerDetails)
-      return (<p>Loading Data</p>)
-    return (<div className="customerdetails">
-      <Panel bsStyle="info" className="centeralign">
-        <Panel.Heading>
-          <Panel.Title componentClass="h3">{this.state.customerDetails.data.name}</Panel.Title>
-        </Panel.Heading>
-        <Panel.Body>
-          <p>Name : {this.state.customerDetails.data.name}</p>
-          <p>Email : {this.state.customerDetails.data.email}</p>
-          <p>Phone : {this.state.customerDetails.data.phone}</p>
-          <p>City : {this.state.customerDetails.data.city}</p>
-          <p>State : {this.state.customerDetails.data.state}</p>
-          <p>Country : {this.state.customerDetails.data.country}</p>
-          <p>Organization : {this.state.customerDetails.data.organization}</p>
-          <p>Job Profile : {this.state.customerDetails.data.jobProfile}</p>
-          <p>Additional Info : {this.state.customerDetails.data.additionalInfo}</p>
-        </Panel.Body>
-      </Panel>
-    </div>)
+      return (<p>Loading Data</p>);
+    return (<React.Fragment>
+      <div className="customerdetails">
+        <Panel bsStyle="info" className="centeralign">
+          <Panel.Heading>
+            <Panel.Title componentClass="h3">{this.state.customerDetails.data.name}</Panel.Title>
+          </Panel.Heading>
+          <Panel.Body>
+            <p>Name : {this.state.customerDetails.data.name}</p>
+            <p>Email : {this.state.customerDetails.data.email}</p>
+            <p>Phone : {this.state.customerDetails.data.phone}</p>
+            <p>City : {this.state.customerDetails.data.city}</p>
+            <p>State : {this.state.customerDetails.data.state}</p>
+            <p>Country : {this.state.customerDetails.data.country}</p>
+            <p>Organization : {this.state.customerDetails.data.organization}</p>
+            <p>Job Profile : {this.state.customerDetails.data.jobProfile}</p>
+            <p>Additional Info : {this.state.customerDetails.data.additionalInfo}</p>
+            <div>
+              <label>
+                <input type="radio" value="option1" checked={this.state.radioValue === 'option1'} onChange={this.handleRadioChange} /> Option 1
+              </label>
+              <label>
+                <input type="radio" value="option2" checked={this.state.radioValue === 'option2'} onChange={this.handleRadioChange} /> Option 2
+              </label>
+            </div>
+          </Panel.Body>
+        </Panel>
+      </div>
+    </React.Fragment>);
   }
 }
