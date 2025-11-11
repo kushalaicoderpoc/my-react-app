@@ -51,6 +51,15 @@ export default class CustomerDetails extends Component {
           <p>Additional Info : {this.state.customerDetails.data.additionalInfo}</p>
         </Panel.Body>
       </Panel>
+      <React.Fragment>
+        <label htmlFor="department">Department:</label>
+        <select id="department">
+          <option value="sales">Sales</option>
+          <option value="support">Support</option>
+          <option value="development">Development</option>
+          <option value="new-department">New Department</option>
+        </select>
+      </React.Fragment>
     </div>)
   }
 }
