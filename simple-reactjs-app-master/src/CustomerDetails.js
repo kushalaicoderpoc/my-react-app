@@ -36,31 +36,31 @@ export default class CustomerDetails extends Component {
 
   render() {
     if (!this.state.customerDetails)
-      return (<p>Loading Data</p>);
-    return (<React.Fragment>
-      <div className="customerdetails">
-        <Panel bsStyle="info" className="centeralign">
-          <Panel.Heading>
-            <Panel.Title componentClass="h3">{this.state.customerDetails.data.name}</Panel.Title>
-          </Panel.Heading>
-          <Panel.Body>
-            <p>Name : {this.state.customerDetails.data.name}</p>
-            <p>Email : {this.state.customerDetails.data.email}</p>
-            <p>Phone : {this.state.customerDetails.data.phone}</p>
-            <p>City : {this.state.customerDetails.data.city}</p>
-            <p>State : {this.state.customerDetails.data.state}</p>
-            <p>Country : {this.state.customerDetails.data.country}</p>
-            {this.state.showMore && (
-              <React.Fragment>
-                <p>Organization : {this.state.customerDetails.data.organization}</p>
-                <p>Job Profile : {this.state.customerDetails.data.jobProfile}</p>
-                <p>Additional Info : {this.state.customerDetails.data.additionalInfo}</p>
-              </React.Fragment>
-            )}
-            <button onClick={this.toggleShowMore} style={{ backgroundColor: 'green', color: 'white' }}>{this.state.showMore ? 'See Less' : 'View Details'}</button>
-          </Panel.Body>
-        </Panel>
-      </div>
-    </React.Fragment>);
+      return (React.createElement('p', null, 'Loading Data'));
+    return (React.createElement(React.Fragment, null,
+      React.createElement('div', { className: 'customerdetails' },
+        React.createElement(Panel, { bsStyle: 'info', className: 'centeralign' },
+          React.createElement(Panel.Heading, null,
+            React.createElement(Panel.Title, { componentClass: 'h3' }, this.state.customerDetails.data.name)
+          ),
+          React.createElement(Panel.Body, null,
+            React.createElement('p', null, 'Name : ', this.state.customerDetails.data.name),
+            React.createElement('p', null, 'Email : ', this.state.customerDetails.data.email),
+            React.createElement('p', null, 'Phone : ', this.state.customerDetails.data.phone),
+            React.createElement('p', null, 'City : ', this.state.customerDetails.data.city),
+            React.createElement('p', null, 'State : ', this.state.customerDetails.data.state),
+            React.createElement('p', null, 'Country : ', this.state.customerDetails.data.country),
+            this.state.showMore && (
+              React.createElement(React.Fragment, null,
+                React.createElement('p', null, 'Organization : ', this.state.customerDetails.data.organization),
+                React.createElement('p', null, 'Job Profile : ', this.state.customerDetails.data.jobProfile),
+                React.createElement('p', null, 'Additional Info : ', this.state.customerDetails.data.additionalInfo)
+              )
+            ),
+            React.createElement('button', { onClick: this.toggleShowMore, style: { backgroundColor: 'green', color: 'white' } }, this.state.showMore ? 'See Less' : 'View Details')
+          )
+        )
+      )
+    ));
   }
 }
