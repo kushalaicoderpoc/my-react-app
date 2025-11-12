@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Panel from 'react-bootstrap/lib/Panel';
 import axios from 'axios';
+import './CustomerDetails.css';
 
 //This Component is a child Component of Customers Component
 export default class CustomerDetails extends Component {
@@ -18,7 +19,7 @@ export default class CustomerDetails extends Component {
     this.getCustomerDetails(this.props.val);
   }
 
-  //Function which is called whenver the component is updated
+  //Function which is called whenever the component is updated
   componentDidUpdate(prevProps) {
     //get Customer Details only if props has changed
     if (this.props.val !== prevProps.val) {
@@ -26,7 +27,7 @@ export default class CustomerDetails extends Component {
     }
   }
 
-  //Function to Load the customerdetails data from json.
+  //Function to Load the customer details data from json.
   getCustomerDetails(id) {
     axios.get('assets/samplejson/customer' + id + '.json').then(response => {
       this.setState({customerDetails: response});
@@ -39,26 +40,26 @@ export default class CustomerDetails extends Component {
 
   render() {
     if (!this.state.customerDetails)
-      return <p>Loading Data</p>;
+      return <p className="loading-text">Loading Data</p>;
     return ( 
       <div className="customerdetails">
-        <Panel bsStyle="info" className="centeralign">
+        <Panel bsStyle="info" className="centeralign panel-background">
           <Panel.Heading>
-            <Panel.Title componentClass="h3">{this.state.customerDetails.data.name}</Panel.Title>
+            <Panel.Title className="heading-text" componentClass="h3">{this.state.customerDetails.data.name}</Panel.Title>
           </Panel.Heading>
           <Panel.Body>
-            <p>Name : {this.state.customerDetails.data.name}</p>
-            <p>Email : {this.state.customerDetails.data.email}</p>
-            <p>Phone : {this.state.customerDetails.data.phone}</p>
-            <p>City : {this.state.customerDetails.data.city}</p>
-            <p>State : {this.state.customerDetails.data.state}</p>
-            <p>Country : {this.state.customerDetails.data.country}</p>
+            <p className="field-text">Name : {this.state.customerDetails.data.name}</p>
+            <p className="field-text">Email : {this.state.customerDetails.data.email}</p>
+            <p className="field-text">Phone : {this.state.customerDetails.data.phone}</p>
+            <p className="field-text">City : {this.state.customerDetails.data.city}</p>
+            <p className="field-text">State : {this.state.customerDetails.data.state}</p>
+            <p className="field-text">Country : {this.state.customerDetails.data.country}</p>
             {this.state.showMore && <React.Fragment>
-              <p>Organization : {this.state.customerDetails.data.organization}</p>
-              <p>Job Profile : {this.state.customerDetails.data.jobProfile}</p>
-              <p>Additional Info : {this.state.customerDetails.data.additionalInfo}</p>
+              <p className="field-text">Organization : {this.state.customerDetails.data.organization}</p>
+              <p className="field-text">Job Profile : {this.state.customerDetails.data.jobProfile}</p>
+              <p className="field-text">Additional Info : {this.state.customerDetails.data.additionalInfo}</p>
             </React.Fragment>}
-            <button onClick={this.toggleShowMore}>
+            <button className="toggle-button" onClick={this.toggleShowMore}>
               {this.state.showMore ? 'See Less' : 'See More'}
             </button>
           </Panel.Body>
