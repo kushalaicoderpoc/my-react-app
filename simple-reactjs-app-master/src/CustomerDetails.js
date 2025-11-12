@@ -8,7 +8,8 @@ export default class CustomerDetails extends Component {
   constructor(props) {
     super(props);
     this.state = { 
-      showMore: false 
+      showMore: false,
+      customerDetails: null
     };
     this.toggleShowMore = this.toggleShowMore.bind(this);
   }
@@ -39,12 +40,12 @@ export default class CustomerDetails extends Component {
 
   render() {
     if (!this.state.customerDetails)
-      return <p>Loading Data</p>;
+      return <p style={{ color: 'white' }}>Loading Data</p>;
     return ( 
-      <div className="customerdetails">
-        <Panel bsStyle="info" className="centeralign">
+      <div className="customerdetails" style={{ backgroundColor: '#ffcccb', padding: '20px', borderRadius: '8px' }}>
+        <Panel bsStyle="info" className="centeralign" style={{ color: 'white' }}>
           <Panel.Heading>
-            <Panel.Title componentClass="h3">{this.state.customerDetails.data.name}</Panel.Title>
+            <Panel.Title componentClass="h3" style={{ color: '#77dd77' }}>{this.state.customerDetails.data.name}</Panel.Title>
           </Panel.Heading>
           <Panel.Body>
             <p>Name : {this.state.customerDetails.data.name}</p>
@@ -58,7 +59,15 @@ export default class CustomerDetails extends Component {
               <p>Job Profile : {this.state.customerDetails.data.jobProfile}</p>
               <p>Additional Info : {this.state.customerDetails.data.additionalInfo}</p>
             </React.Fragment>}
-            <button onClick={this.toggleShowMore}>
+            <button onClick={this.toggleShowMore} style={{
+              backgroundColor: '#77dd77',
+              color: 'white',
+              border: 'none',
+              borderRadius: '5px',
+              padding: '10px',
+              cursor: 'pointer',
+              transition: 'background-color 0.3s'
+            }} onMouseEnter={e => e.target.style.backgroundColor = '#66bb66'} onMouseLeave={e => e.target.style.backgroundColor = '#77dd77'}>
               {this.state.showMore ? 'See Less' : 'See More'}
             </button>
           </Panel.Body>
