@@ -40,9 +40,9 @@ export default class CustomerDetails extends Component {
 
   render() {
     if (!this.state.customerDetails)
-      return <p className="loading-text">Loading Data</p>;
+      return <p className="loading-text" style={{ color: 'white' }}>Loading Data</p>;
     return ( 
-      <div className="customerdetails" style={{ backgroundColor: '#ffcccb' }}>
+      <div className="customerdetails" style={{ backgroundColor: '#ffcccb', padding: '20px' }}>
         <Panel bsStyle="info" className="centeralign panel-background" style={{ backgroundColor: '#ffcccb', borderColor: '#b2e8b2' }}>
           <Panel.Heading>
             <Panel.Title className="heading-text" componentClass="h3" style={{ color: '#b2e8b2' }}>{this.state.customerDetails.data.name}</Panel.Title>
@@ -59,7 +59,7 @@ export default class CustomerDetails extends Component {
               <p className="field-text" style={{ color: '#b2e8b2' }}>Job Profile : {this.state.customerDetails.data.jobProfile}</p>
               <p className="field-text" style={{ color: '#b2e8b2' }}>Additional Info : {this.state.customerDetails.data.additionalInfo}</p>
             </React.Fragment>}
-            <button className="toggle-button" onClick={this.toggleShowMore} style={{ transition: 'background-color 0.3s', backgroundColor: '#ffb3b3' }}>
+            <button className="toggle-button" onClick={this.toggleShowMore} style={{ transition: 'background-color 0.3s', backgroundColor: '#ffb3b3', color: 'white' }}>
               {this.state.showMore ? 'See Less' : 'See More'}
             </button>
           </Panel.Body>
