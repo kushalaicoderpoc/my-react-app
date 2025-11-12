@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Panel from 'react-bootstrap/lib/Panel';
 import axios from 'axios';
 
-//This Component is a child Component of Customers Component
+// This Component is a child Component of Customers Component
 export default class CustomerDetails extends Component {
 
   constructor(props) {
@@ -10,20 +10,21 @@ export default class CustomerDetails extends Component {
     this.state = { showAdditionalInfo: false };
   }
 
-  //Function which is called when the component loads for the first time
+  // Function which is called when the component loads for the first time
   componentDidMount() {
     this.getCustomerDetails(this.props.val);
+    document.title = 'AI Coder - React App Demo'; // Update page title
   }
 
-  //Function which is called whenever the component is updated
+  // Function which is called whenever the component is updated
   componentDidUpdate(prevProps) {
-    //get Customer Details only if props has changed
+    // get Customer Details only if props has changed
     if (this.props.val !== prevProps.val) {
       this.getCustomerDetails(this.props.val);
     }
   }
 
-  //Function to Load the customer details data from json.
+  // Function to Load the customer details data from json.
   getCustomerDetails(id) {
     axios.get('assets/samplejson/customer' + id + '.json').then(response => {
       this.setState({ customerDetails: response });
