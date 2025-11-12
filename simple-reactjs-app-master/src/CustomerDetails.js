@@ -8,7 +8,8 @@ export default class CustomerDetails extends Component {
   constructor(props) {
     super(props);
     this.state = { 
-      showMore: false 
+      showMore: false,
+      customerDetails: null
     };
     this.toggleShowMore = this.toggleShowMore.bind(this);
   }
@@ -39,26 +40,26 @@ export default class CustomerDetails extends Component {
 
   render() {
     if (!this.state.customerDetails)
-      return <p>Loading Data</p>;
+      return <p style={{ color: 'white' }}>Loading Data</p>;
     return ( 
-      <div className="customerdetails">
-        <Panel bsStyle="info" className="centeralign">
+      <div className="customerdetails" style={{ backgroundColor: '#ffcccb', padding: '20px', borderRadius: '8px', transition: 'background-color 0.3s ease' }}>
+        <Panel bsStyle="info" className="centeralign" style={{ transition: 'box-shadow 0.3s ease' }}>
           <Panel.Heading>
-            <Panel.Title componentClass="h3">{this.state.customerDetails.data.name}</Panel.Title>
+            <Panel.Title componentClass="h3" style={{ color: '#77dd77' }}>{this.state.customerDetails.data.name}</Panel.Title>
           </Panel.Heading>
           <Panel.Body>
-            <p>Name : {this.state.customerDetails.data.name}</p>
-            <p>Email : {this.state.customerDetails.data.email}</p>
-            <p>Phone : {this.state.customerDetails.data.phone}</p>
-            <p>City : {this.state.customerDetails.data.city}</p>
-            <p>State : {this.state.customerDetails.data.state}</p>
-            <p>Country : {this.state.customerDetails.data.country}</p>
+            <p style={{ color: 'white' }}>Name : {this.state.customerDetails.data.name}</p>
+            <p style={{ color: 'white' }}>Email : {this.state.customerDetails.data.email}</p>
+            <p style={{ color: 'white' }}>Phone : {this.state.customerDetails.data.phone}</p>
+            <p style={{ color: 'white' }}>City : {this.state.customerDetails.data.city}</p>
+            <p style={{ color: 'white' }}>State : {this.state.customerDetails.data.state}</p>
+            <p style={{ color: 'white' }}>Country : {this.state.customerDetails.data.country}</p>
             {this.state.showMore && <React.Fragment>
-              <p>Organization : {this.state.customerDetails.data.organization}</p>
-              <p>Job Profile : {this.state.customerDetails.data.jobProfile}</p>
-              <p>Additional Info : {this.state.customerDetails.data.additionalInfo}</p>
+              <p style={{ color: 'white' }}>Organization : {this.state.customerDetails.data.organization}</p>
+              <p style={{ color: 'white' }}>Job Profile : {this.state.customerDetails.data.jobProfile}</p>
+              <p style={{ color: 'white' }}>Additional Info : {this.state.customerDetails.data.additionalInfo}</p>
             </React.Fragment>}
-            <button onClick={this.toggleShowMore}>
+            <button onClick={this.toggleShowMore} style={{ padding: '10px 15px', marginTop: '10px', border: 'none', backgroundColor: '#77dd77', color: 'white', cursor: 'pointer', transition: 'background-color 0.3s ease' }}>
               {this.state.showMore ? 'See Less' : 'See More'}
             </button>
           </Panel.Body>
