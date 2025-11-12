@@ -1,45 +1,40 @@
-import React, { Component } from 'react';
-import Panel from 'react-bootstrap/lib/Panel';
-import axios from 'axios';
+import React, {Component} from 'react';
+import Panel from 'react-bootstrap/lib/Panel'
+import axios from 'axios'
 
-// This Component is a child Component of Customers Component
+//This Component is a child Component of Customers Component
 export default class CustomerDetails extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { showAdditionalInfo: false };
+    this.state = {}
   }
 
-  // Function which is called when the component loads for the first time
+  //Function which is called when the component loads for the first time
   componentDidMount() {
-    this.getCustomerDetails(this.props.val);
-    document.title = 'AI Coder - React App Demo'; // Update page title
+    this.getCustomerDetails(this.props.val)
   }
 
-  // Function which is called whenever the component is updated
+  //Function which is called whenver the component is updated
   componentDidUpdate(prevProps) {
-    // get Customer Details only if props has changed
+
+    //get Customer Details only if props has changed
     if (this.props.val !== prevProps.val) {
-      this.getCustomerDetails(this.props.val);
+      this.getCustomerDetails(this.props.val)
     }
   }
 
-  // Function to Load the customer details data from json.
+  //Function to Load the customerdetails data from json.
   getCustomerDetails(id) {
     axios.get('assets/samplejson/customer' + id + '.json').then(response => {
-      this.setState({ customerDetails: response });
-    });
-  };
-
-  toggleAdditionalInfo = () => {
-    this.setState(prevState => ({ showAdditionalInfo: !prevState.showAdditionalInfo }));
+      this.setState({customerDetails: response})
+    })
   };
 
   render() {
     if (!this.state.customerDetails)
-      return <p>Loading Data</p>;
-
-    return <div className="customerdetails">
+      return (<p>Loading Data</p>)
+    return (<div className="customerdetails">
       <Panel bsStyle="info" className="centeralign">
         <Panel.Heading>
           <Panel.Title componentClass="h3">{this.state.customerDetails.data.name}</Panel.Title>
@@ -51,20 +46,11 @@ export default class CustomerDetails extends Component {
           <p>City : {this.state.customerDetails.data.city}</p>
           <p>State : {this.state.customerDetails.data.state}</p>
           <p>Country : {this.state.customerDetails.data.country}</p>
-          <React.Fragment>
-            <button style={{ backgroundColor: 'green' }} onClick={this.toggleAdditionalInfo}>
-              {this.state.showAdditionalInfo ? 'See Less' : 'See More'}
-            </button>
-            {this.state.showAdditionalInfo && (
-              <React.Fragment>
-                <p>Organization : {this.state.customerDetails.data.organization}</p>
-                <p>Job Profile : {this.state.customerDetails.data.jobProfile}</p>
-                <p>Additional Info : {this.state.customerDetails.data.additionalInfo}</p>
-              </React.Fragment>
-            )}
-          </React.Fragment>
+          <p>Organization : {this.state.customerDetails.data.organization}</p>
+          <p>Job Profile : {this.state.customerDetails.data.jobProfile}</p>
+          <p>Additional Info : {this.state.customerDetails.data.additionalInfo}</p>
         </Panel.Body>
       </Panel>
-    </div>;
+    </div>)
   }
 }
