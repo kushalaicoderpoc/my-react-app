@@ -51,7 +51,7 @@ export default class CustomerDetails extends Component {
           <p>State : {this.state.customerDetails.data.state}</p>
           <p>Country : {this.state.customerDetails.data.country}</p>
           <React.Fragment>
-            <button onClick={this.toggleAdditionalInfo}>
+            <button style={{ backgroundColor: 'green' }} onClick={this.toggleAdditionalInfo}>
               {this.state.showAdditionalInfo ? 'See Less' : 'See More'}
             </button>
             {this.state.showAdditionalInfo && (
