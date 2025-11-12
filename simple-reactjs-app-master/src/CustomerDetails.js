@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import Panel from 'react-bootstrap/lib/Panel'
-import axios from 'axios'
+import Panel from 'react-bootstrap/lib/Panel';
+import axios from 'axios';
 
 //This Component is a child Component of Customers Component
 export default class CustomerDetails extends Component {
@@ -33,7 +33,7 @@ export default class CustomerDetails extends Component {
 
   render() {
     if (!this.state.customerDetails)
-      return (<p>Loading Data</p>)
+      return (<p>Loading Data</p>);
     return (<div className="customerdetails">
       <Panel bsStyle="info" className="centeralign">
         <Panel.Heading>
@@ -50,7 +50,8 @@ export default class CustomerDetails extends Component {
           <p>Job Profile : {this.state.customerDetails.data.jobProfile}</p>
           <p>Additional Info : {this.state.customerDetails.data.additionalInfo}</p>
         </Panel.Body>
+        <Button style={{ backgroundColor: 'green' }}>Click to view details</Button>
       </Panel>
-    </div>)
+    </div>);
   }
 }
