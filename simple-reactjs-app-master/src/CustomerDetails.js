@@ -40,17 +40,31 @@ export default class CustomerDetails extends Component {
           <Panel.Title componentClass="h3">{this.state.customerDetails.data.name}</Panel.Title>
         </Panel.Heading>
         <Panel.Body>
-          <p>Name : {this.state.customerDetails.data.name}</p>
-          <p>Email : {this.state.customerDetails.data.email}</p>
-          <p>Phone : {this.state.customerDetails.data.phone}</p>
-          <p>City : {this.state.customerDetails.data.city}</p>
-          <p>State : {this.state.customerDetails.data.state}</p>
-          <p>Country : {this.state.customerDetails.data.country}</p>
-          <p>Organization : {this.state.customerDetails.data.organization}</p>
-          <p>Job Profile : {this.state.customerDetails.data.jobProfile}</p>
-          <p>Additional Info : {this.state.customerDetails.data.additionalInfo}</p>
+          <React.Fragment>
+            <p>Name : {this.state.customerDetails.data.name}</p>
+            <p>Email : {this.state.customerDetails.data.email}</p>
+            <p>Phone : {this.state.customerDetails.data.phone}</p>
+            <p>City : {this.state.customerDetails.data.city}</p>
+            <p>State : {this.state.customerDetails.data.state}</p>
+            <p>Country : {this.state.customerDetails.data.country}</p>
+            <p>Organization : {this.state.customerDetails.data.organization}</p>
+            <p>Job Profile : {this.state.customerDetails.data.jobProfile}</p>
+            <p>Additional Info : {this.state.customerDetails.data.additionalInfo}</p>
+          </React.Fragment>
         </Panel.Body>
       </Panel>
     </div>)
   }
 }
+
+const buttonStyle = {
+  backgroundColor: '#d3d3d3',
+  color: '#000',
+  border: 'none',
+  padding: '10px 20px',
+  cursor: 'pointer',
+};
+
+const buttonHoverStyle = {
+  backgroundColor: '#c0c0c0',
+};
