@@ -7,7 +7,7 @@ export default class CustomerDetails extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { showMore: false }
+    this.state = { showMore: false, customerDetails: null };
   }
 
   //Function which is called when the component loads for the first time
@@ -35,8 +35,7 @@ export default class CustomerDetails extends Component {
   };
 
   render() {
-    if (!this.state.customerDetails)
-      return (<p>Loading Data</p>);
+    if (!this.state.customerDetails) return (<p>Loading Data</p>);
     return (
       <div className="customerdetails">
         <Panel bsStyle="info" className="centeralign">
