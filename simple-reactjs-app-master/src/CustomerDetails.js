@@ -7,7 +7,12 @@ export default class CustomerDetails extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {}
+    this.state = {
+      customerDetails: null, // Initialize to null for better loading state management
+      showMoreDetails: false // New state variable to control visibility of additional fields
+    }
+    // Bind the toggle method to the component instance
+    this.toggleMoreDetails = this.toggleMoreDetails.bind(this);
   }
 
   //Function which is called when the component loads for the first time
@@ -26,29 +31,61 @@ export default class CustomerDetails extends Component {
 
   //Function to Load the customerdetails data from json.
   getCustomerDetails(id) {
-    axios.get('assets/samplejson/customer' + id + '.json').then(response => {
-      this.setState({customerDetails: response})
-    })
+    axios.get('assets/samplejson/customer' + id + '.json')
+      .then(response => {
+        this.setState({customerDetails: response})
+      })
+      .catch(error => {
+        console.error("Error fetching customer details:", error);
+        // Optionally, handle error state, e.g., this.setState({ customerDetails: null, error: true });
+      });
   };
 
+  // Toggles the visibility of 'Organization', 'Job Profile', and 'Additional Info' fields
+  toggleMoreDetails() {
+    this.setState(prevState => ({
+      showMoreDetails: !prevState.showMoreDetails
+    }));
+  }
+
   render() {
-    if (!this.state.customerDetails)
-      return (<p>Loading Data</p>)
-    return (<div className="customerdetails">
+    const { customerDetails, showMoreDetails } = this.state;
+
+    if (!customerDetails) {
+      return (<p>Loading Data</p>);
+    }
+
+    // Destructure customer data for cleaner access
+    const customerData = customerDetails.data;
+
+    return (
+    <div className="customerdetails">
       <Panel bsStyle="info" className="centeralign">
         <Panel.Heading>
-          <Panel.Title componentClass="h3">{this.state.customerDetails.data.name}</Panel.Title>
+          <Panel.Title componentClass="h3">{customerData.name}</Panel.Title>
         </Panel.Heading>
         <Panel.Body>
-          <p>Name : {this.state.customerDetails.data.name}</p>
-          <p>Email : {this.state.customerDetails.data.email}</p>
-          <p>Phone : {this.state.customerDetails.data.phone}</p>
-          <p>City : {this.state.customerDetails.data.city}</p>
-          <p>State : {this.state.customerDetails.data.state}</p>
-          <p>Country : {this.state.customerDetails.data.country}</p>
-          <p>Organization : {this.state.customerDetails.data.organization}</p>
-          <p>Job Profile : {this.state.customerDetails.data.jobProfile}</p>
-          <p>Additional Info : {this.state.customerDetails.data.additionalInfo}</p>
+          <p>Name : {customerData.name}</p>
+          <p>Email : {customerData.email}</p>
+          <p>Phone : {customerData.phone}</p>
+          <p>City : {customerData.city}</p>
+          <p>State : {customerData.state}</p>
+          <p>Country : {customerData.country}</p>
+
+          {/* Conditional rendering for 'Organization', 'Job Profile', and 'Additional Info' */}
+          {showMoreDetails && (
+            <React.Fragment>
+              <p>Organization : {customerData.organization}</p>
+              <p>Job Profile : {customerData.jobProfile}</p>
+              <p>Additional Info : {customerData.additionalInfo}</p>
+            </React.Fragment>
+          )}
+
+          {/* Button to toggle the visibility of the additional fields */}
+          <button onClick={this.toggleMoreDetails} className="btn btn-link mt-2">
+            {showMoreDetails ? 'see less' : 'see more'}
+          </button>
+
         </Panel.Body>
       </Panel>
     </div>)
