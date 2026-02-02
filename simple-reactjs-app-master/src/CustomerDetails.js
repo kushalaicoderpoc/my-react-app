@@ -7,12 +7,7 @@ export default class CustomerDetails extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      customerDetails: null, // Initialize to null, will be set after data fetch
-      showMore: false // New state to control visibility of additional info
-    }
-    // Bind the toggle method to the component instance
-    this.toggleShowMore = this.toggleShowMore.bind(this);
+    this.state = {}
   }
 
   //Function which is called when the component loads for the first time
@@ -20,7 +15,7 @@ export default class CustomerDetails extends Component {
     this.getCustomerDetails(this.props.val)
   }
 
-  //Function which is called whenever the component is updated
+  //Function which is called whenver the component is updated
   componentDidUpdate(prevProps) {
 
     //get Customer Details only if props has changed
@@ -36,48 +31,26 @@ export default class CustomerDetails extends Component {
     })
   };
 
-  // Function to toggle the visibility of additional fields
-  toggleShowMore() {
-    this.setState(prevState => ({
-      showMore: !prevState.showMore
-    }));
-  }
-
   render() {
     if (!this.state.customerDetails)
-      return (<p>Loading Data</p>);
-
-    const { data } = this.state.customerDetails; // Destructure data for cleaner access
-    const { showMore } = this.state; // Get showMore state
-
-    return (
-      <div className="customerdetails">
-        <Panel bsStyle="info" className="centeralign">
-          <Panel.Heading>
-            <Panel.Title componentClass="h3">{data.name}</Panel.Title>
-          </Panel.Heading>
-          <Panel.Body>
-            <p>Name : {data.name}</p>
-            <p>Email : {data.email}</p>
-            <p>Phone : {data.phone}</p>
-            <p>City : {data.city}</p>
-            <p>State : {data.state}</p>
-            <p>Country : {data.country}</p>
-
-            {showMore && (
-              <React.Fragment>
-                <p>Organization : {data.organization}</p>
-                <p>Job Profile : {data.jobProfile}</p>
-                <p>Additional Info : {data.additionalInfo}</p>
-              </React.Fragment>
-            )}
-
-            <button onClick={this.toggleShowMore} className="btn btn-primary btn-sm mt-2">
-              {showMore ? 'see less' : 'see more'}
-            </button>
-          </Panel.Body>
-        </Panel>
-      </div>
-    );
+      return (<p>Loading Data</p>)
+    return (<div className="customerdetails">
+      <Panel bsStyle="info" className="centeralign">
+        <Panel.Heading>
+          <Panel.Title componentClass="h3">{this.state.customerDetails.data.name}</Panel.Title>
+        </Panel.Heading>
+        <Panel.Body>
+          <p>Name : {this.state.customerDetails.data.name}</p>
+          <p>Email : {this.state.customerDetails.data.email}</p>
+          <p>Phone : {this.state.customerDetails.data.phone}</p>
+          <p>City : {this.state.customerDetails.data.city}</p>
+          <p>State : {this.state.customerDetails.data.state}</p>
+          <p>Country : {this.state.customerDetails.data.country}</p>
+          <p>Organization : {this.state.customerDetails.data.organization}</p>
+          <p>Job Profile : {this.state.customerDetails.data.jobProfile}</p>
+          <p>Additional Info : {this.state.customerDetails.data.additionalInfo}</p>
+        </Panel.Body>
+      </Panel>
+    </div>)
   }
 }
