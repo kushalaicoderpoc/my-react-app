@@ -1,56 +1,68 @@
-import React, {Component} from 'react';
-import Panel from 'react-bootstrap/lib/Panel'
-import axios from 'axios'
+import React, { useState } from 'react';
 
-//This Component is a child Component of Customers Component
-export default class CustomerDetails extends Component {
+function CustomerDetails() {
+  const [showAdditionalInfo, setShowAdditionalInfo] = useState(false);
 
-  constructor(props) {
-    super(props);
-    this.state = {}
-  }
-
-  //Function which is called when the component loads for the first time
-  componentDidMount() {
-    this.getCustomerDetails(this.props.val)
-  }
-
-  //Function which is called whenver the component is updated
-  componentDidUpdate(prevProps) {
-
-    //get Customer Details only if props has changed
-    if (this.props.val !== prevProps.val) {
-      this.getCustomerDetails(this.props.val)
-    }
-  }
-
-  //Function to Load the customerdetails data from json.
-  getCustomerDetails(id) {
-    axios.get('assets/samplejson/customer' + id + '.json').then(response => {
-      this.setState({customerDetails: response})
-    })
+  const toggleAdditionalInfo = () => {
+    setShowAdditionalInfo(!showAdditionalInfo);
   };
 
-  render() {
-    if (!this.state.customerDetails)
-      return (<p>Loading Data</p>)
-    return (<div className="customerdetails">
-      <Panel bsStyle="info" className="centeralign">
-        <Panel.Heading>
-          <Panel.Title componentClass="h3">{this.state.customerDetails.data.name}</Panel.Title>
-        </Panel.Heading>
-        <Panel.Body>
-          <p>Name : {this.state.customerDetails.data.name}</p>
-          <p>Email : {this.state.customerDetails.data.email}</p>
-          <p>Phone : {this.state.customerDetails.data.phone}</p>
-          <p>City : {this.state.customerDetails.data.city}</p>
-          <p>State : {this.state.customerDetails.data.state}</p>
-          <p>Country : {this.state.customerDetails.data.country}</p>
-          <p>Organization : {this.state.customerDetails.data.organization}</p>
-          <p>Job Profile : {this.state.customerDetails.data.jobProfile}</p>
-          <p>Additional Info : {this.state.customerDetails.data.additionalInfo}</p>
-        </Panel.Body>
-      </Panel>
-    </div>)
-  }
+  return (
+    <React.Fragment>
+      <h1>Customer Details</h1>
+
+      {/* Basic Customer Information (always visible) */}
+      <div style={{ marginBottom: '20px', padding: '15px', border: '1px solid #eee', borderRadius: '8px' }}>
+        <h3>Basic Information</h3>
+        <p><strong>Customer ID:</strong> CUST-001</p>
+        <p><strong>Name:</strong> Jane Doe</p>
+        <p><strong>Email:</strong> jane.doe@example.com</p>
+        <p><strong>Phone:</strong> +1 (555) 123-4567</p>
+      </div>
+
+      {/* Conditional Additional Information Fields */}
+      {showAdditionalInfo && (
+        <React.Fragment>
+          <div style={{ marginBottom: '20px', padding: '15px', border: '1px solid #eee', borderRadius: '8px', backgroundColor: '#f9f9f9' }}>
+            <h3>Organization</h3>
+            <p><strong>Company Name:</strong> Innovate Solutions Corp.</p>
+            <p><strong>Department:</strong> Research & Development</p>
+            <p><strong>Location:</strong> San Francisco, CA</p>
+          </div>
+
+          <div style={{ marginBottom: '20px', padding: '15px', border: '1px solid #eee', borderRadius: '8px', backgroundColor: '#f9f9f9' }}>
+            <h3>Job Profile</h3>
+            <p><strong>Title:</strong> Lead Software Engineer</p>
+            <p><strong>Role:</strong> Technical Lead</p>
+            <p><strong>Experience:</strong> 10+ years</p>
+          </div>
+
+          <div style={{ marginBottom: '20px', padding: '15px', border: '1px solid #eee', borderRadius: '8px', backgroundColor: '#f9f9f9' }}>
+            <h3>Additional Info</h3>
+            <p><strong>Notes:</strong> Key contact for new product initiatives. Prefers email communication.</p>
+            <p><strong>Last Contacted:</strong> 2023-10-26</p>
+          </div>
+        </React.Fragment>
+      )}
+
+      {/* Toggle Button */}
+      <button
+        onClick={toggleAdditionalInfo}
+        style={{
+          padding: '10px 20px',
+          fontSize: '16px',
+          cursor: 'pointer',
+          backgroundColor: '#007bff',
+          color: 'white',
+          border: 'none',
+          borderRadius: '5px',
+          marginTop: '10px'
+        }}
+      >
+        {showAdditionalInfo ? 'See less' : 'See more'}
+      </button>
+    </React.Fragment>
+  );
 }
+
+export default CustomerDetails;
