@@ -1,56 +1,84 @@
-import React, {Component} from 'react';
-import Panel from 'react-bootstrap/lib/Panel'
-import axios from 'axios'
+import React, { useState } from 'react';
 
-//This Component is a child Component of Customers Component
-export default class CustomerDetails extends Component {
+const CustomerDetails = () => {
+  const [showMoreDetails, setShowMoreDetails] = useState(false);
 
-  constructor(props) {
-    super(props);
-    this.state = {}
-  }
-
-  //Function which is called when the component loads for the first time
-  componentDidMount() {
-    this.getCustomerDetails(this.props.val)
-  }
-
-  //Function which is called whenver the component is updated
-  componentDidUpdate(prevProps) {
-
-    //get Customer Details only if props has changed
-    if (this.props.val !== prevProps.val) {
-      this.getCustomerDetails(this.props.val)
-    }
-  }
-
-  //Function to Load the customerdetails data from json.
-  getCustomerDetails(id) {
-    axios.get('assets/samplejson/customer' + id + '.json').then(response => {
-      this.setState({customerDetails: response})
-    })
+  const toggleDetails = () => {
+    setShowMoreDetails(!showMoreDetails);
   };
 
-  render() {
-    if (!this.state.customerDetails)
-      return (<p>Loading Data</p>)
-    return (<div className="customerdetails">
-      <Panel bsStyle="info" className="centeralign">
-        <Panel.Heading>
-          <Panel.Title componentClass="h3">{this.state.customerDetails.data.name}</Panel.Title>
-        </Panel.Heading>
-        <Panel.Body>
-          <p>Name : {this.state.customerDetails.data.name}</p>
-          <p>Email : {this.state.customerDetails.data.email}</p>
-          <p>Phone : {this.state.customerDetails.data.phone}</p>
-          <p>City : {this.state.customerDetails.data.city}</p>
-          <p>State : {this.state.customerDetails.data.state}</p>
-          <p>Country : {this.state.customerDetails.data.country}</p>
-          <p>Organization : {this.state.customerDetails.data.organization}</p>
-          <p>Job Profile : {this.state.customerDetails.data.jobProfile}</p>
-          <p>Additional Info : {this.state.customerDetails.data.additionalInfo}</p>
-        </Panel.Body>
-      </Panel>
-    </div>)
-  }
-}
+  return (
+    <React.Fragment>
+      <div style={{
+        border: '1px solid #e0e0e0',
+        borderRadius: '8px',
+        padding: '25px',
+        maxWidth: '500px',
+        margin: '30px auto',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
+        backgroundColor: '#fff'
+      }}>
+        <h2 style={{
+          fontSize: '24px',
+          color: '#333',
+          marginBottom: '20px',
+          borderBottom: '1px solid #f0f0f0',
+          paddingBottom: '10px'
+        }}>Customer Information</h2>
+
+        <div style={{ marginBottom: '10px' }}>
+          <strong style={{ minWidth: '120px', display: 'inline-block' }}>Name:</strong> John Doe
+        </div>
+        <div style={{ marginBottom: '10px' }}>
+          <strong style={{ minWidth: '120px', display: 'inline-block' }}>Email:</strong> john.doe@example.com
+        </div>
+        <div style={{ marginBottom: '10px' }}>
+          <strong style={{ minWidth: '120px', display: 'inline-block' }}>Phone:</strong> +1 (555) 123-4567
+        </div>
+
+        {showMoreDetails && (
+          <React.Fragment>
+            <div style={{
+              borderTop: '1px solid #f0f0f0',
+              marginTop: '20px',
+              paddingTop: '20px'
+            }}>
+              <div style={{ marginBottom: '10px' }}>
+                <strong style={{ minWidth: '120px', display: 'inline-block' }}>Organization:</strong> Global Innovations Inc.
+              </div>
+              <div style={{ marginBottom: '10px' }}>
+                <strong style={{ minWidth: '120px', display: 'inline-block' }}>Job Profile:</strong> Lead Software Architect
+              </div>
+              <div style={{ marginBottom: '10px' }}>
+                <strong style={{ minWidth: '120px', display: 'inline-block' }}>Additional Info:</strong> Spearheads the development of new AI-driven solutions.
+              </div>
+            </div>
+          </React.Fragment>
+        )}
+
+        <button
+          onClick={toggleDetails}
+          style={{
+            marginTop: '25px',
+            padding: '12px 20px',
+            backgroundColor: '#007bff',
+            color: 'white',
+            border: 'none',
+            borderRadius: '6px',
+            cursor: 'pointer',
+            fontSize: '16px',
+            fontWeight: '600',
+            transition: 'background-color 0.2s ease',
+            outline: 'none'
+          }}
+          onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#0056b3'}
+          onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#007bff'}
+        >
+          {showMoreDetails ? 'See Less' : 'See More'}
+        </button>
+      </div>
+    </React.Fragment>
+  );
+};
+
+export default CustomerDetails;
