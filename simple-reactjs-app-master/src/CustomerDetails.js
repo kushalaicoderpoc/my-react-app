@@ -1,80 +1,49 @@
 import React, { useState } from 'react';
 
 const CustomerDetails = () => {
-  const [showMoreDetails, setShowMoreDetails] = useState(false);
+  const [showMore, setShowMore] = useState(false);
 
-  const toggleDetails = () => {
-    setShowMoreDetails(!showMoreDetails);
+  // Mock customer data for demonstration purposes
+  const customerData = {
+    name: 'Jane Doe',
+    email: 'jane.doe@example.com',
+    organization: 'Global Tech Solutions',
+    jobProfile: 'Senior Product Manager',
+    additionalInfo: 'Successfully led the Q4 product launch and managed a cross-functional team of 10 engineers and designers.'
+  };
+
+  const toggleSeeMore = () => {
+    setShowMore(prev => !prev);
   };
 
   return (
     <React.Fragment>
-      <div style={{
-        border: '1px solid #e0e0e0',
-        borderRadius: '8px',
-        padding: '25px',
-        maxWidth: '500px',
-        margin: '30px auto',
-        boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
-        backgroundColor: '#fff'
-      }}>
-        <h2 style={{
-          fontSize: '24px',
-          color: '#333',
-          marginBottom: '20px',
-          borderBottom: '1px solid #f0f0f0',
-          paddingBottom: '10px'
-        }}>Customer Information</h2>
+      <div style={{ border: '1px solid #ccc', padding: '15px', borderRadius: '8px', maxWidth: '400px', margin: '20px auto' }}>
+        <h3>Customer Information</h3>
+        <p><strong>Name:</strong> {customerData.name}</p>
+        <p><strong>Email:</strong> {customerData.email}</p>
 
-        <div style={{ marginBottom: '10px' }}>
-          <strong style={{ minWidth: '120px', display: 'inline-block' }}>Name:</strong> John Doe
-        </div>
-        <div style={{ marginBottom: '10px' }}>
-          <strong style={{ minWidth: '120px', display: 'inline-block' }}>Email:</strong> john.doe@example.com
-        </div>
-        <div style={{ marginBottom: '10px' }}>
-          <strong style={{ minWidth: '120px', display: 'inline-block' }}>Phone:</strong> +1 (555) 123-4567
-        </div>
-
-        {showMoreDetails && (
+        {showMore && (
           <React.Fragment>
-            <div style={{
-              borderTop: '1px solid #f0f0f0',
-              marginTop: '20px',
-              paddingTop: '20px'
-            }}>
-              <div style={{ marginBottom: '10px' }}>
-                <strong style={{ minWidth: '120px', display: 'inline-block' }}>Organization:</strong> Global Innovations Inc.
-              </div>
-              <div style={{ marginBottom: '10px' }}>
-                <strong style={{ minWidth: '120px', display: 'inline-block' }}>Job Profile:</strong> Lead Software Architect
-              </div>
-              <div style={{ marginBottom: '10px' }}>
-                <strong style={{ minWidth: '120px', display: 'inline-block' }}>Additional Info:</strong> Spearheads the development of new AI-driven solutions.
-              </div>
-            </div>
+            <p><strong>Organization:</strong> {customerData.organization}</p>
+            <p><strong>Job Profile:</strong> {customerData.jobProfile}</p>
+            <p><strong>Additional Info:</strong> {customerData.additionalInfo}</p>
           </React.Fragment>
         )}
 
         <button
-          onClick={toggleDetails}
+          onClick={toggleSeeMore}
           style={{
-            marginTop: '25px',
-            padding: '12px 20px',
+            marginTop: '10px',
+            padding: '8px 15px',
             backgroundColor: '#007bff',
             color: 'white',
             border: 'none',
-            borderRadius: '6px',
-            cursor: 'pointer',
-            fontSize: '16px',
-            fontWeight: '600',
-            transition: 'background-color 0.2s ease',
-            outline: 'none'
+            borderRadius: '5px',
+            cursor: 'pointer'
           }}
-          onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#0056b3'}
-          onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#007bff'}
         >
-          {showMoreDetails ? 'See Less' : 'See More'}
+          {showMore ? 'See Less' : 'See More'}
         </button>
       </div>
     </React.Fragment>
