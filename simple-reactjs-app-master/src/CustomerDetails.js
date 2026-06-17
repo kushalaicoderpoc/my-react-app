@@ -1,56 +1,47 @@
-import React, {Component} from 'react';
-import Panel from 'react-bootstrap/lib/Panel'
-import axios from 'axios'
+import React, { useState } from 'react';
 
-//This Component is a child Component of Customers Component
-export default class CustomerDetails extends Component {
+const CustomerDetails = () => {
+  const [showMore, setShowMore] = useState(false);
 
-  constructor(props) {
-    super(props);
-    this.state = {}
-  }
-
-  //Function which is called when the component loads for the first time
-  componentDidMount() {
-    this.getCustomerDetails(this.props.val)
-  }
-
-  //Function which is called whenver the component is updated
-  componentDidUpdate(prevProps) {
-
-    //get Customer Details only if props has changed
-    if (this.props.val !== prevProps.val) {
-      this.getCustomerDetails(this.props.val)
-    }
-  }
-
-  //Function to Load the customerdetails data from json.
-  getCustomerDetails(id) {
-    axios.get('assets/samplejson/customer' + id + '.json').then(response => {
-      this.setState({customerDetails: response})
-    })
+  const toggleSeeMore = () => {
+    setShowMore(!showMore);
   };
 
-  render() {
-    if (!this.state.customerDetails)
-      return (<p>Loading Data</p>)
-    return (<div className="customerdetails">
-      <Panel bsStyle="info" className="centeralign">
-        <Panel.Heading>
-          <Panel.Title componentClass="h3">{this.state.customerDetails.data.name}</Panel.Title>
-        </Panel.Heading>
-        <Panel.Body>
-          <p>Name : {this.state.customerDetails.data.name}</p>
-          <p>Email : {this.state.customerDetails.data.email}</p>
-          <p>Phone : {this.state.customerDetails.data.phone}</p>
-          <p>City : {this.state.customerDetails.data.city}</p>
-          <p>State : {this.state.customerDetails.data.state}</p>
-          <p>Country : {this.state.customerDetails.data.country}</p>
-          <p>Organization : {this.state.customerDetails.data.organization}</p>
-          <p>Job Profile : {this.state.customerDetails.data.jobProfile}</p>
-          <p>Additional Info : {this.state.customerDetails.data.additionalInfo}</p>
-        </Panel.Body>
-      </Panel>
-    </div>)
-  }
-}
+  return (
+    <React.Fragment>
+      <div style={{ fontFamily: 'Arial, sans-serif', padding: '20px', border: '1px solid #ccc', borderRadius: '8px', maxWidth: '600px', margin: '20px auto' }}>
+        <h2>Customer Details</h2>
+        <p><strong>Name:</strong> John Doe</p>
+        <p><strong>Email:</strong> john.doe@example.com</p>
+        <p><strong>Phone:</strong> +1 (555) 123-4567</p>
+
+        {showMore && (
+          <React.Fragment>
+            <hr style={{ margin: '15px 0' }} />
+            <p><strong>Organization:</strong> Tech Solutions Inc.</p>
+            <p><strong>Job Profile:</strong> Senior Software Engineer</p>
+            <p><strong>Additional Info:</strong> Key contact for new product integration. Has been a loyal customer for 5 years.</p>
+          </React.Fragment>
+        )}
+
+        <button
+          onClick={toggleSeeMore}
+          style={{
+            marginTop: '15px',
+            padding: '10px 15px',
+            backgroundColor: '#007bff',
+            color: 'white',
+            border: 'none',
+            borderRadius: '5px',
+            cursor: 'pointer',
+            fontSize: '16px'
+          }}
+        >
+          {showMore ? 'See Less' : 'See More'}
+        </button>
+      </div>
+    </React.Fragment>
+  );
+};
+
+export default CustomerDetails;
