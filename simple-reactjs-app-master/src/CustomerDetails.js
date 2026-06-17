@@ -1,56 +1,42 @@
-import React, {Component} from 'react';
-import Panel from 'react-bootstrap/lib/Panel'
-import axios from 'axios'
+import React, { useState } from 'react';
 
-//This Component is a child Component of Customers Component
-export default class CustomerDetails extends Component {
+const CustomerDetails = ({ customer }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
 
-  constructor(props) {
-    super(props);
-    this.state = {}
-  }
-
-  //Function which is called when the component loads for the first time
-  componentDidMount() {
-    this.getCustomerDetails(this.props.val)
-  }
-
-  //Function which is called whenver the component is updated
-  componentDidUpdate(prevProps) {
-
-    //get Customer Details only if props has changed
-    if (this.props.val !== prevProps.val) {
-      this.getCustomerDetails(this.props.val)
-    }
-  }
-
-  //Function to Load the customerdetails data from json.
-  getCustomerDetails(id) {
-    axios.get('assets/samplejson/customer' + id + '.json').then(response => {
-      this.setState({customerDetails: response})
-    })
+  const toggleExpand = () => {
+    setIsExpanded(!isExpanded);
   };
 
-  render() {
-    if (!this.state.customerDetails)
-      return (<p>Loading Data</p>)
-    return (<div className="customerdetails">
-      <Panel bsStyle="info" className="centeralign">
-        <Panel.Heading>
-          <Panel.Title componentClass="h3">{this.state.customerDetails.data.name}</Panel.Title>
-        </Panel.Heading>
-        <Panel.Body>
-          <p>Name : {this.state.customerDetails.data.name}</p>
-          <p>Email : {this.state.customerDetails.data.email}</p>
-          <p>Phone : {this.state.customerDetails.data.phone}</p>
-          <p>City : {this.state.customerDetails.data.city}</p>
-          <p>State : {this.state.customerDetails.data.state}</p>
-          <p>Country : {this.state.customerDetails.data.country}</p>
-          <p>Organization : {this.state.customerDetails.data.organization}</p>
-          <p>Job Profile : {this.state.customerDetails.data.jobProfile}</p>
-          <p>Additional Info : {this.state.customerDetails.data.additionalInfo}</p>
-        </Panel.Body>
-      </Panel>
-    </div>)
-  }
-}
+  // Use provided customer data or fall back to placeholder data for demonstration
+  const customerData = customer || {
+    name: 'Jane Doe',
+    email: 'jane.doe@example.com',
+    phone: '987-654-3210',
+    organization: 'XYZ Corp',
+    jobProfile: 'Project Manager',
+    additionalInfo: 'Available for calls after 2 PM local time.'
+  };
+
+  return (
+    <React.Fragment>
+      <h2>Customer Details</h2>
+      <p><strong>Name:</strong> {customerData.name}</p>
+      <p><strong>Email:</strong> {customerData.email}</p>
+      <p><strong>Phone:</strong> {customerData.phone}</p>
+
+      <button onClick={toggleExpand} style={{ marginTop: '10px', marginBottom: '10px', padding: '8px 15px', cursor: 'pointer' }}>
+        {isExpanded ? 'See Less' : 'See More'}
+      </button>
+
+      {isExpanded && (
+        <React.Fragment>
+          <p><strong>Organization:</strong> {customerData.organization}</p>
+          <p><strong>Job Profile:</strong> {customerData.jobProfile}</p>
+          <p><strong>Additional Info:</strong> {customerData.additionalInfo}</p>
+        </React.Fragment>
+      )}
+    </React.Fragment>
+  );
+};
+
+export default CustomerDetails;
